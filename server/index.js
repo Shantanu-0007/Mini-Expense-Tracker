@@ -9,6 +9,19 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Root route
+app.get("/", (req, res) => {
+  res.json({
+    message: "Spendly API is running 🚀",
+    version: "1.0.0",
+    endpoints: {
+      health: "/api/health",
+      expenses: "/api/expenses",
+      budgets: "/api/budgets",
+    },
+  });
+});
+
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/budgets", budgetRoutes);
 
