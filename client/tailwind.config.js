@@ -4,21 +4,16 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["'DM Sans'", "sans-serif"],
-        display: ["'Syne'", "sans-serif"],
+        sans: ["'Nunito'", "sans-serif"],
+        display: ["'Plus Jakarta Sans'", "sans-serif"],
       },
       colors: {
-        brand: {
-          50: "#fdf4ff",
-          100: "#fae8ff",
-          500: "#a855f7",
-          600: "#9333ea",
-          700: "#7e22ce",
-        },
-        surface: "#0f0f13",
-        "surface-2": "#1a1a22",
-        "surface-3": "#24242f",
-        accent: "#a855f7",
+        dark: "#1a1d2e",
+        surface: "#f0f2f8",
+      },
+      boxShadow: {
+        card: "0 2px 20px rgba(0,0,0,0.06)",
+        "card-lg": "0 8px 40px rgba(0,0,0,0.10)",
       },
     },
   },
