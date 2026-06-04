@@ -250,7 +250,6 @@ Mini-Expense-Tracker/
 │
 ├── README.md
 ├── .gitignore
-├── expenses.js
 │
 ├── server/                        # Node.js + Express backend
 │   ├── index.js                   # App entry point, middleware, error handler
@@ -263,7 +262,7 @@ Mini-Expense-Tracker/
 │   ├── utils/
 │   │   └── storage.js             # readJSON / writeJSON helpers using fs
 │   │
-│   ├── tests/
+│   ├── __tests__/
 │   │   └── expenses.test.js       # Integration tests with Jest + Supertest
 │   │
 │   └── data/                      # Auto-created at runtime, gitignored
@@ -274,31 +273,31 @@ Mini-Expense-Tracker/
     ├── package.json               # includes "proxy" to backend
     ├── tailwind.config.js
     ├── postcss.config.js
-    ├── .env
+    ├── .env                       # REACT_APP_API_URL for production
     ├── .gitignore
     │
     ├── public/
     │   └── index.html
     │
     └── src/
-    ├── App.js                 # Root layout, tab navigation, modal
-    ├── index.js               # React DOM entry point
-    ├── index.css              # Tailwind directives + global styles
-    │
-    ├── components/
-    │   ├── ExpenseForm.jsx    # Add/edit form with client-side validation
-    │   ├── ExpenseList.jsx    # Transaction list with inline edit + delete
-    │   ├── SummaryPanel.jsx   # Monthly total, per-category, highest spend
-    │   ├── ExpenseChart.jsx   # Pie and bar chart toggle (Recharts)
-    │   ├── Filters.jsx        # Category pills + date range + quick presets
-    │   └── BudgetSettings.jsx # Per-category budget inputs with save
-    │
-    ├── hooks/
-    │   └── useExpenses.js     # Central data fetching and mutation hook
-    │
-    └── utils/
-    ├── api.js             # fetch wrapper for all API calls
-    └── helpers.js         # formatCurrency, formatDate, exportToCSV, constants
+        ├── App.js                 # Root layout, tab navigation, modal
+        ├── index.js               # React DOM entry point
+        ├── index.css              # Tailwind directives + global styles
+        │
+        ├── components/
+        │   ├── ExpenseForm.jsx    # Add/edit form with client-side validation
+        │   ├── ExpenseList.jsx    # Transaction list with inline edit + delete
+        │   ├── SummaryPanel.jsx   # Monthly total, per-category, highest spend
+        │   ├── ExpenseChart.jsx   # Pie and bar chart toggle (Recharts)
+        │   ├── Filters.jsx        # Category pills + date range + quick presets
+        │   └── BudgetSettings.jsx # Per-category budget inputs with save
+        │
+        ├── hooks/
+        │   └── useExpenses.js     # Central data fetching and mutation hook
+        │
+        └── utils/
+            ├── api.js             # fetch wrapper for all API calls
+            └── helpers.js         # formatCurrency, formatDate, exportToCSV, constants
 
 ---
 
