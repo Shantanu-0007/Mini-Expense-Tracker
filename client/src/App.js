@@ -139,15 +139,20 @@ export default function App() {
         {activeTab === "expenses" && (
           <>
             <Filters filters={filters} onChange={setFilters} />
+        
             <div className="flex items-center justify-between px-1">
               <p className="text-sm text-gray-400 font-semibold">
                 {loading ? "Loading…" : `${expenses.length} transaction${expenses.length !== 1 ? "s" : ""}`}
               </p>
-              <button onClick={() => exportToCSV(expenses)} disabled={expenses.length === 0}
-                className="text-xs text-gray-400 font-bold hover:text-[#1a1d2e] disabled:opacity-40 transition-colors">
-                ⬇ Export CSV
+              <button
+                onClick={() => exportToCSV(expenses)}
+                disabled={expenses.length === 0}
+                className="flex items-center gap-2 bg-[#1a1d2e] disabled:opacity-40 text-white text-xs font-bold px-4 py-2.5 rounded-2xl shadow-card hover:bg-[#2a2d3e] transition-all active:scale-95"
+              >
+                <span>⬇</span> Export CSV
               </button>
             </div>
+        
             <div className="card shadow-card">
               <ExpenseList
                 expenses={expenses}
