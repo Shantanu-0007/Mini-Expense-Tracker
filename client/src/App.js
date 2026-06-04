@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useExpenses } from "./hooks/useExpenses";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
