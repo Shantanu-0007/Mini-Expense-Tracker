@@ -7,6 +7,7 @@ import ExpenseChart from "./components/ExpenseChart";
 import Filters from "./components/Filters";
 import BudgetSettings from "./components/BudgetSettings";
 import { exportToCSV } from "./utils/helpers";
+import React, { useState, useEffect } from "react";
 
 export default function App() {
   const [filters, setFilters] = useState({
@@ -39,6 +40,9 @@ export default function App() {
       setFormLoading(false);
     }
   }
+  useEffect(() => {
+  document.title = "Walletro — Expense Tracker";
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#0f0f13]">
