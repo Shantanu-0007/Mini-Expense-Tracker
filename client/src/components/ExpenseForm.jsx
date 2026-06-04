@@ -2,24 +2,22 @@ import React, { useState, useEffect } from "react";
 import { CATEGORIES } from "../utils/helpers";
 
 const today = new Date().toISOString().split("T")[0];
-
 const empty = { amount: "", category: "", date: today, note: "" };
+
+const ICONS = { Food:"🍜", Transport:"🚌", Bills:"💡", Entertainment:"🎬", Other:"📦" };
 
 export default function ExpenseForm({ initial, onSubmit, onCancel, loading }) {
   const [form, setForm] = useState(initial || empty);
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    setForm(initial || empty);
-    setErrors({});
-  }, [initial]);
+  useEffect(() => { setForm(initial || empty); setErrors({}); }, [initial]);
 
   function validate() {
     const errs = {};
-    if (!form.amount || Number(form.amount) <= 0) errs.amount = "Enter a positive amount.";
-    if (!form.category) errs.category = "Select a category.";
-    if (!form.date) errs.date = "Pick a date.";
-    else if (form.date > today) errs.date = "Date cannot be in the future.";
+    if (!form.amount || Number(form.amount) <= 0) errs.amount = "Enter a positive amount";
+    if (!form.category) errs.category = "Select a category";
+    if (!form.date) errs.date = "Pick a date";
+    else if (form.date > today) errs.date = "Date cannot be in the future";
     return errs;
   }
 
@@ -32,93 +30,78 @@ export default function ExpenseForm({ initial, onSubmit, onCancel, loading }) {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) return setErrors(errs);
-    try {
-      await onSubmit({ ...form, amount: parseFloat(form.amount) });
-      setForm(empty);
-    } catch (err) {
-      setErrors({ general: err.message });
-    }
+    try { await onSubmit({ ...form, amount: parseFloat(form.amount) }); setForm(empty); }
+    catch (err) { setErrors({ general: err.message }); }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-5">
       {errors.general && (
-        <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl px-3 py-2">
+        <div className="bg-red-50 text-red-500 text-sm rounded-2xl px-4 py-3 font-semibold">
           {errors.general}
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-3">
-        {/* Amount */}
-        <div>
-          <label className="label">Amount (₹) *</label>
+      {/* Amount */}
+      <div>
+        <label className="label">Amount</label>
+        <div className="relative">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-lg">₹</span>
           <input
-            className={`input ${errors.amount ? "border-red-500/60" : ""}`}
-            type="number"
-            name="amount"
-            step="0.01"
-            min="0"
-            placeholder="0.00"
-            value={form.amount}
-            onChange={handleChange}
+            className={`input pl-9 text-2xl font-bold h-14 ${errors.amount ? "ring-2 ring-red-300" : ""}`}
+            type="number" name="amount" step="0.01" min="0" placeholder="0.00"
+            value={form.amount} onChange={handleChange}
           />
-          {errors.amount && <p className="text-red-400 text-xs mt-1">{errors.amount}</p>}
         </div>
+        {errors.amount && <p className="text-red-400 text-xs mt-1.5 font-semibold">{errors.amount}</p>}
+      </div>
 
-        {/* Category */}
-        <div>
-          <label className="label">Category *</label>
-          <select
-            className={`input ${errors.category ? "border-red-500/60" : ""}`}
-            name="category"
-            value={form.category}
-            onChange={handleChange}
-          >
-            <option value="">Select...</option>
-            {CATEGORIES.map((c) => (
-              <option key={c} value={c}>{c}</option>
-            ))}
-          </select>
-          {errors.category && <p className="text-red-400 text-xs mt-1">{errors.category}</p>}
+      {/* Category pills */}
+      <div>
+        <label className="label">Category</label>
+        <div className="flex flex-wrap gap-2">
+          {CATEGORIES.map((c) => (
+            <button key={c} type="button"
+              onClick={() => { setForm((f) => ({ ...f, category: c })); setErrors((er) => ({ ...er, category: undefined })); }}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold transition-all ${
+                form.category === c
+                  ? "bg-[#1a1d2e] text-white shadow-md"
+                  : "bg-[#f5f6fa] text-gray-500 hover:bg-gray-100"
+              }`}>
+              <span>{ICONS[c]}</span> {c}
+            </button>
+          ))}
         </div>
+        {errors.category && <p className="text-red-400 text-xs mt-1.5 font-semibold">{errors.category}</p>}
       </div>
 
       {/* Date */}
       <div>
-        <label className="label">Date *</label>
+        <label className="label">Date</label>
         <input
-          className={`input ${errors.date ? "border-red-500/60" : ""}`}
-          type="date"
-          name="date"
-          max={today}
-          value={form.date}
-          onChange={handleChange}
+          className={`input ${errors.date ? "ring-2 ring-red-300" : ""}`}
+          type="date" name="date" max={today}
+          value={form.date} onChange={handleChange}
         />
-        {errors.date && <p className="text-red-400 text-xs mt-1">{errors.date}</p>}
+        {errors.date && <p className="text-red-400 text-xs mt-1.5 font-semibold">{errors.date}</p>}
       </div>
 
       {/* Note */}
       <div>
         <label className="label">Note (optional)</label>
         <input
-          className="input"
-          type="text"
-          name="note"
-          placeholder="What was this for?"
-          maxLength={200}
-          value={form.note}
-          onChange={handleChange}
+          className="input" type="text" name="note"
+          placeholder="e.g. Lunch with team" maxLength={200}
+          value={form.note} onChange={handleChange}
         />
       </div>
 
-      <div className="flex gap-2 pt-1">
-        <button type="submit" className="btn-primary flex-1" disabled={loading}>
-          {loading ? "Saving…" : initial ? "Update Expense" : "Add Expense"}
+      <div className="flex gap-3 pt-1">
+        <button type="submit" className="btn-primary flex-1 h-12" disabled={loading}>
+          {loading ? "Saving…" : initial ? "Update" : "Add Expense"}
         </button>
         {onCancel && (
-          <button type="button" className="btn-secondary" onClick={onCancel}>
-            Cancel
-          </button>
+          <button type="button" className="btn-secondary h-12" onClick={onCancel}>Cancel</button>
         )}
       </div>
     </form>
