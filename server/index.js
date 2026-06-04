@@ -12,7 +12,7 @@ app.use(express.json());
 // Root route
 app.get("/", (req, res) => {
   res.json({
-    message: "Spendly API is running 🚀",
+    message: "Walletro API is running 🚀",
     version: "1.0.0",
     endpoints: {
       health: "/api/health",
