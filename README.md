@@ -245,7 +245,7 @@ Response `200`:
 ---
 
 ## Project Structure
-
+```
 Mini-Expense-Tracker/
 │
 ├── README.md
@@ -298,7 +298,7 @@ Mini-Expense-Tracker/
         └── utils/
             ├── api.js             # fetch wrapper for all API calls
             └── helpers.js         # formatCurrency, formatDate, exportToCSV, constants
-
+```
 ---
 
 ## Features Implemented
