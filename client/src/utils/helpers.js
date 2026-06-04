@@ -9,36 +9,32 @@ export function formatCurrency(amount) {
 export function formatDate(dateStr) {
   const date = new Date(dateStr + "T00:00:00");
   return date.toLocaleDateString("en-IN", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
+    day: "numeric", month: "short", year: "numeric",
   });
 }
 
 export const CATEGORIES = ["Food", "Transport", "Bills", "Entertainment", "Other"];
 
 export const CATEGORY_COLORS = {
-  Food: "#f97316",
-  Transport: "#3b82f6",
-  Bills: "#ef4444",
-  Entertainment: "#a855f7",
-  Other: "#6b7280",
+  Food:          "#FF6B6B",
+  Transport:     "#4ECDC4",
+  Bills:         "#FFB347",
+  Entertainment: "#A855F7",
+  Other:         "#95A5A6",
 };
 
 export const CATEGORY_ICONS = {
-  Food: "🍜",
-  Transport: "🚌",
-  Bills: "💡",
+  Food:          "🍜",
+  Transport:     "🚌",
+  Bills:         "💡",
   Entertainment: "🎬",
-  Other: "📦",
+  Other:         "📦",
 };
 
 export function exportToCSV(expenses) {
   const headers = ["Date", "Category", "Amount (₹)", "Note"];
   const rows = expenses.map((e) => [
-    e.date,
-    e.category,
-    e.amount.toFixed(2),
+    e.date, e.category, e.amount.toFixed(2),
     `"${(e.note || "").replace(/"/g, '""')}"`,
   ]);
   const csv = [headers, ...rows].map((r) => r.join(",")).join("\n");
@@ -46,7 +42,7 @@ export function exportToCSV(expenses) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `expenses_${new Date().toISOString().split("T")[0]}.csv`;
+  a.download = `walletro_expenses_${new Date().toISOString().split("T")[0]}.csv`;
   a.click();
   URL.revokeObjectURL(url);
 }
