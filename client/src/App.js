@@ -49,7 +49,7 @@ export default function App() {
             <div className="w-8 h-8 rounded-xl bg-purple-600 flex items-center justify-center text-base">
               💰
             </div>
-            <h1 className="font-display font-bold text-xl text-white tracking-tight">Spendly</h1>
+            <h1 className="font-display font-bold text-xl text-white tracking-tight">Walletro</h1>
           </div>
           <div className="flex items-center gap-2">
             <button
