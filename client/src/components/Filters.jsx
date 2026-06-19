@@ -68,12 +68,20 @@ export default function Filters({ filters, onChange }) {
         <div>
           <label className="label">From</label>
           <input type="date" className="input text-sm" value={startDate} min="2000-01-01"
-            max={endDate || today} onChange={(e) => set("startDate", e.target.value)} />
+            max={today} onChange={(e) => {
+              const val = e.target.value;
+              if (val > today) return;
+              set("startDate", val);
+            }} />
         </div>
         <div>
           <label className="label">To</label>
           <input type="date" className="input text-sm" value={endDate}
-            min={startDate || "2000-01-01"} max={today} onChange={(e) => set("endDate", e.target.value)} />
+            min={startDate || "2000-01-01"} max={today} onChange={(e) => {
+              const val = e.target.value;
+              if (val > today) return;
+              set("endDate", val);
+            }} />
         </div>
       </div>
 
