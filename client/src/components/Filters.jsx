@@ -67,13 +67,13 @@ export default function Filters({ filters, onChange }) {
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="label">From</label>
-          <input type="date" className="input text-sm" value={startDate}
+          <input type="date" className="input text-sm" value={startDate} min="2000-01-01"
             max={endDate || today} onChange={(e) => set("startDate", e.target.value)} />
         </div>
         <div>
           <label className="label">To</label>
           <input type="date" className="input text-sm" value={endDate}
-            min={startDate} max={today} onChange={(e) => set("endDate", e.target.value)} />
+            min={startDate || "2000-01-01"} max={today} onChange={(e) => set("endDate", e.target.value)} />
         </div>
       </div>
 
